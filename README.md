@@ -1,0 +1,2 @@
+# lord
+https//lord.space
