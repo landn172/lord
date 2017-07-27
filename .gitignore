@@ -1,0 +1,5 @@
+nginx.conf
+shell/**
+ssl/**
+bin/**
+node_modules/**
