@@ -28,3 +28,7 @@ a {
     user-select: none;
     z-index: 10;
 }
+
+.wrapper a {
+    color: #000;
+}
