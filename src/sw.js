@@ -1,4 +1,4 @@
-importScripts('./dist/workbox-sw.prod.js')
+importScripts('workbox-sw.prod.js')
 
 const workboxSW = new WorkboxSW({ clientsClaim: true });
 

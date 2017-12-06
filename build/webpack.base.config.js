@@ -11,12 +11,10 @@ const isProd = process.env.NODE_ENV === 'production'
 
 module.exports = {
   devtool: isProd ?
-    false :
-    '#cheap-module-source-map',
+    false : '#cheap-module-source-map',
   output: {
     path: config.build.assetsRoot,
-    publicPath: isProd ? config.build.assetsPublicPath :
-      config.dev.assetsPublicPath,
+    publicPath: isProd ? config.build.assetsPublicPath : config.dev.assetsPublicPath,
     filename: '[name].[chunkhash].js'
   },
   resolve: {
@@ -57,9 +55,9 @@ module.exports = {
       use: isProd ?
         ExtractTextPlugin.extract({
           use: 'css-loader?minimize',
-          fallback: 'vue-style-loader'
-        }) :
-        ['vue-style-loader', 'css-loader']
+          fallback: 'vue-style-loader',
+          filename: utils.assetsPath('css/[name].[chunkhash].css')
+        }) : ['vue-style-loader', 'css-loader']
     }
     ]
   },
@@ -67,22 +65,22 @@ module.exports = {
     maxEntrypointSize: 300000,
     hints: isProd ? 'warning' : false
   },
-  plugins: isProd ?
-    [
-      new webpack.optimize.UglifyJsPlugin({
-        compress: { warnings: false }
-      }),
-      new webpack.optimize.ModuleConcatenationPlugin(),
-      new ExtractTextPlugin({
-        filename: 'common.[chunkhash].css'
-      }),
-      new OptimizeCSSPlugin({
-        cssProcessorOptions: {
-          safe: true
-        }
-      })
-    ] :
-    [
-      new FriendlyErrorsPlugin()
-    ]
+  plugins: isProd ? [
+    new webpack.optimize.UglifyJsPlugin({
+      compress: { warnings: false },
+      sourceMap: config.build.productionSourceMap,
+      parallel: true
+    }),
+    new webpack.optimize.ModuleConcatenationPlugin(),
+    new ExtractTextPlugin({
+      filename: utils.assetsPath('css/[name].[chunkhash].css')
+    }),
+    new OptimizeCSSPlugin({
+      cssProcessorOptions: {
+        safe: true
+      }
+    })
+  ] : [
+    new FriendlyErrorsPlugin()
+  ]
 }

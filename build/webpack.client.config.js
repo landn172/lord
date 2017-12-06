@@ -67,7 +67,7 @@ if (process.env.NODE_ENV === 'production') {
     // auto generate service worker
     new WorkboxPlugin({
       globDirectory: dist,
-      globPatterns: ['**/*.{html,js}'],
+      globPatterns: ['**/*.{html,js,css}'],
       swSrc: './src/sw.js',
       swDest: path.join(dist, 'sw.js'),
       clientsClaim: true,
