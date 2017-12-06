@@ -6,6 +6,7 @@ const base = require('./webpack.base.config')
 const WorkboxPlugin = require('workbox-webpack-plugin')
 const VueSSRClientPlugin = require('vue-server-renderer/client-plugin')
 const CompressionWebpackPlugin = require('compression-webpack-plugin')
+const uglifyEs = require('uglify-es')
 const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin
 
 const utils = require('./utils')
@@ -30,8 +31,8 @@ const webpackConfig = merge(base, {
   },
   output: {
     path: config.build.assetsRoot,
-    filename: utils.assetsPath('js/[name].[chunkhash].js'),
-    chunkFilename: utils.assetsPath('js/[id].[chunkhash].js')
+    filename: utils.assetsPath('js/[name].[chunkhash:7].js'),
+    chunkFilename: utils.assetsPath('js/[id].[chunkhash:7].js')
   },
   plugins: [
     // strip dev-only code in Vue source
@@ -73,9 +74,15 @@ if (process.env.NODE_ENV === 'production') {
       clientsClaim: true,
       skipWaiting: true,
     }),
-    new CopyWebpackPlugin([
-      { from: require.resolve('workbox-sw'), to: 'workbox-sw.prod.js' }
-    ])
+    new CopyWebpackPlugin([{
+      from: require.resolve('workbox-sw'),
+      to: 'workbox-sw.prod.js',
+      transform: content =>
+        // const { error, code } = uglifyEs.minify(content)
+        // if (error) console.log(error)
+      /* code || */content
+
+    }])
   )
 }
 

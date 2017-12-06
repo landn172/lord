@@ -6,7 +6,9 @@ Vue.use(Router);
 export function createRouter() {
   return new Router({
     mode: 'history',
-    scrollBehavior: () => ({ y: 0 }),
+    scrollBehavior: () => ({
+      y: 0
+    }),
     routes: [{
       path: '/',
       name: 'Index',
@@ -15,3 +17,6 @@ export function createRouter() {
     }],
   });
 }
+
+export default createRouter
+

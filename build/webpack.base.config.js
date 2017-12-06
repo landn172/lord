@@ -56,7 +56,7 @@ module.exports = {
         ExtractTextPlugin.extract({
           use: 'css-loader?minimize',
           fallback: 'vue-style-loader',
-          filename: utils.assetsPath('css/[name].[chunkhash].css')
+          filename: utils.assetsPath('css/[name].[chunkhash:7].css')
         }) : ['vue-style-loader', 'css-loader']
     }
     ]
@@ -73,7 +73,7 @@ module.exports = {
     }),
     new webpack.optimize.ModuleConcatenationPlugin(),
     new ExtractTextPlugin({
-      filename: utils.assetsPath('css/[name].[chunkhash].css')
+      filename: utils.assetsPath('css/[name].[chunkhash:7].css')
     }),
     new OptimizeCSSPlugin({
       cssProcessorOptions: {

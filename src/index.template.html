@@ -12,14 +12,13 @@
   <link rel="shortcut icon" sizes="48x48" href="/public/icon-48.png">
   <meta name="theme-color" content="#f60">
   <link rel="manifest" href="/public/manifest.json">
-  <style>
-
-
-  </style>
+    {{{ renderResourceHints() }}}
+    {{{ renderStyles() }}}
 </head>
 
 <body>
   <!--vue-ssr-outlet-->
+  {{{ renderState() }}}
   <% if (isProd) { %>
     <script defer>
     function handleRegistration(registration) {

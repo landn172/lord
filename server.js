@@ -6,7 +6,9 @@ const logger = require('morgan');
 const cookieParser = require('cookie-parser');
 const bodyParser = require('body-parser');
 const autoprefixer = require('express-autoprefixer')
-const { createBundleRenderer } = require('vue-server-renderer')
+const {
+  createBundleRenderer
+} = require('vue-server-renderer')
 const resolve = file => path.resolve(__dirname, file)
 
 const app = express();
@@ -33,7 +35,8 @@ if (isProd) {
   const clientManifest = require('./dist/vue-ssr-client-manifest.json')
   renderer = createRenderer(serverBundle, {
     template, // （可选）页面模板
-    clientManifest // （可选）客户端构建 manifest
+    clientManifest, // （可选）客户端构建 manifest
+    inject: false
   })
 } else {
   readyPromise = require('./build/setup-dev-server')(
@@ -95,15 +98,23 @@ function render(req, res) {
     title: `lord's space`, // default title
     url: req.url
   }
-  renderer.renderToString(context, (err, html) => {
-    if (err) {
-      return handleError(err)
-    }
-    res.send(html)
-    if (!isProd) {
-      console.log(`whole request: ${Date.now() - s}ms`)
-    }
-  })
+
+  const renderStream = renderer.renderToStream(context)
+
+  renderStream.on('data', data => res.write(data))
+  renderStream.on('end', (data) => res.end(data || ''))
+
+  renderStream.on('error', err => handleError(err))
+
+  // renderer.renderToString(context, (err, html) => {
+  //   if (err) {
+  //     return handleError(err)
+  //   }
+  //   res.send(html)
+  //   if (!isProd) {
+  //     console.log(`whole request: ${Date.now() - s}ms`)
+  //   }
+  // })
 }
 
 app.get('*', isProd ? render : (req, res) => {
