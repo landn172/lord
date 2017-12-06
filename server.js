@@ -68,6 +68,7 @@ app.set('view engine', 'ejs')
 app.use(logger('dev'));
 // app.use(favicon('./public/logo-48.png'))
 app.use('/dist', serve('./dist', true))
+app.use('/static', serve('./dist/static', true))
 app.use('/public', serve('./public', true))
 app.use('/manifest.json', serve('./manifest.json', true))
 app.use('/sw.js', serve('./dist/sw.js'))
