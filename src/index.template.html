@@ -7,13 +7,11 @@
   <meta name="mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="default">
-  <link rel="apple-touch-icon" sizes="120x120" href="/public/icon-120.png">
+  <link rel="apple-touch-icon" sizes="144x144" href="/public/ico-144.png">
   <meta name="viewport" content="width=device-width, initial-scale=1, minimal-ui">
-  <link rel="shortcut icon" sizes="48x48" href="/public/icon-48.png">
-  <meta name="theme-color" content="#f60">
-  <link rel="manifest" href="/public/manifest.json">
-    {{{ renderResourceHints() }}}
-    {{{ renderStyles() }}}
+  <link rel="shortcut icon" href="/public/favicon.ico" type="image/x-icon">
+  <meta name="theme-color" content="#262626">
+  <link rel="manifest" href="/public/manifest.json"> {{{ renderResourceHints() }}} {{{ renderStyles() }}}
 </head>
 
 <body>
@@ -21,32 +19,34 @@
   {{{ renderState() }}}
   <% if (isProd) { %>
     <script defer>
-    function handleRegistration(registration) {
-      console.log('Service Worker Registered. ', registration)
-      /**
-       * ServiceWorkerRegistration.onupdatefound
-       * The service worker registration's installing worker changes.
-       */
-      registration.onupdatefound = (e) => {
-        const installingWorker = registration.installing;
-        installingWorker.onstatechange = (e) => {
-          if (installingWorker.state !== 'installed') return;
-          if (navigator.serviceWorker.controller) {
-            console.log('SW is updated');
-          } else {
-            console.log('A Visit without previous SW');
-          }
+      function handleRegistration(registration) {
+        console.log('Service Worker Registered. ', registration)
+        /**
+         * ServiceWorkerRegistration.onupdatefound
+         * The service worker registration's installing worker changes.
+         */
+        registration.onupdatefound = (e) => {
+          const installingWorker = registration.installing;
+          installingWorker.onstatechange = (e) => {
+            if (installingWorker.state !== 'installed') return;
+            if (navigator.serviceWorker.controller) {
+              console.log('SW is updated');
+            } else {
+              console.log('A Visit without previous SW');
+            }
+          };
         };
-      };
-    }
-    navigator.serviceWorker && navigator.serviceWorker
-      .register('/sw.js')
-      .then((registration) => handleRegistration(registration))
-      .catch((error) => { console.log('ServiceWorker registration failed: ', error) });
+      }
+      navigator.serviceWorker && navigator.serviceWorker
+        .register('/sw.js')
+        .then((registration) => handleRegistration(registration))
+        .catch((error) => {
+          console.log('ServiceWorker registration failed: ', error)
+        });
 
     </script>
     <% } %>
-    {{{ renderScripts() }}}
+      {{{ renderScripts() }}}
 </body>
 
 </html>

@@ -13,7 +13,7 @@ export function createRouter() {
       path: '/',
       name: 'Index',
       component: () =>
-        import('../components/Index.vue'),
+        import('../views/Index.vue'),
     }],
   });
 }
