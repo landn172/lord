@@ -1,5 +1,7 @@
 # lord
 
+[![Build Status](https://travis-ci.org/landn172/lord.svg?branch=master)](https://travis-ci.org/landn172/lord)
+
 > A Vue.js project
 
 ## Build Setup
