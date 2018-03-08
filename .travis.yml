@@ -8,9 +8,12 @@ install:
 - npm install
 script:
 - npm run build
+addons:
+  ssh_known_hosts: $host
 before_install:
-- chmod 600 ~/.ssh/id_rsa
 - openssl aes-256-cbc -K $encrypted_74cc3739aa67_key -iv $encrypted_74cc3739aa67_iv
   -in id_rsa.enc -out ~\/.ssh/id_rsa -d
+- chmod 600 ~/.ssh/id_rsa
 after_success:
 - echo "build success"
+- ssh travis@$host -p $host_port -o StrictHostKeyChecking=no 'bash ~/shell/build_lord.sh'
