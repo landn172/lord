@@ -6,8 +6,14 @@ branchs:
   - master
 install:
 - npm install
+- cd blog && npm install
 script:
-- npm run build
+- npm run generate
+- cd ../ && npm run build
+cache:
+  directories:
+    - node_modules
+    - blog/node_modules
 addons:
   ssh_known_hosts:
   - 65.49.207.115
