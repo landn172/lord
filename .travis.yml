@@ -8,7 +8,7 @@ install:
 - npm install
 - cd blog && npm install
 script:
-- npm run build
+- npm run generate
 - cd ../ && npm run build
 cache:
   directories:
