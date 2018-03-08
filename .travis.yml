@@ -1,0 +1,6 @@
+lansguage: node_js
+node_js:
+- '6'
+branchs:
+  only:
+  - master
