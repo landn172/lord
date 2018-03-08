@@ -11,6 +11,7 @@ script:
 - npm run generate
 - cd ../ && npm run build
 cache:
+  bundler: true
   directories:
     - node_modules
     - blog/node_modules
