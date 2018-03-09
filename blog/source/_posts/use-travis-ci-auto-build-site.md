@@ -1,5 +1,5 @@
 ---
-title: use-travis-ci-auto-build-site
+title: 使用 Travis-CI 自动部署 blog
 date: 2018-03-08 16:45:09
 tags:
 ---
