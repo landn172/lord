@@ -293,8 +293,8 @@ mathjax:
 
 # Disqus
 disqus:
-  enable: false
-  shortname:
+  enable: true
+  shortname: lord-space
   count: true
 
 # Hypercomments
