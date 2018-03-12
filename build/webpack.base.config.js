@@ -10,8 +10,7 @@ const vueConfig = require('./vue-loader.config')
 const isProd = process.env.NODE_ENV === 'production'
 
 module.exports = {
-  devtool: isProd ?
-    false : '#cheap-module-source-map',
+  devtool: isProd ? false : '#cheap-module-source-map',
   output: {
     path: config.build.assetsRoot,
     publicPath: isProd ? config.build.assetsPublicPath : config.dev.assetsPublicPath,
@@ -25,62 +24,65 @@ module.exports = {
   },
   module: {
     noParse: /es6-promise\.js$/, // avoid webpack shimming process
-    rules: [{
-      test: /\.vue$/,
-      loader: 'vue-loader',
-      options: vueConfig
-    },
-    {
-      test: /\.js$/,
-      loader: 'babel-loader',
-      exclude: /node_modules/
-    },
-    {
-      test: /\.(png|jpg|gif|svg)$/,
-      loader: 'url-loader',
-      options: {
-        limit: 10000,
-        name: utils.assetsPath('img/[name].[hash:7].[ext]')
+    rules: [
+      {
+        test: /\.vue$/,
+        loader: 'vue-loader',
+        options: vueConfig
+      },
+      {
+        test: /\.js$/,
+        loader: 'babel-loader',
+        exclude: /node_modules/
+      },
+      {
+        test: /\.(png|jpg|gif|svg)$/,
+        loader: 'url-loader',
+        options: {
+          limit: 10000,
+          name: utils.assetsPath('img/[name].[hash:7].[ext]')
+        }
+      },
+      {
+        test: /\.(woff2?|eot|ttf|otf)(\?.*)?$/,
+        loader: 'url-loader',
+        options: {
+          limit: 10000,
+          name: utils.assetsPath('fonts/[name].[hash:7].[ext]')
+        }
+      },
+      {
+        test: /\.css$/,
+        use: isProd
+          ? ExtractTextPlugin.extract({
+            use: 'css-loader?minimize',
+            fallback: 'vue-style-loader',
+            filename: utils.assetsPath('css/[name].[chunkhash:7].css')
+          })
+          : ['vue-style-loader', 'css-loader']
       }
-    }, {
-      test: /\.(woff2?|eot|ttf|otf)(\?.*)?$/,
-      loader: 'url-loader',
-      options: {
-        limit: 10000,
-        name: utils.assetsPath('fonts/[name].[hash:7].[ext]')
-      }
-    },
-    {
-      test: /\.css$/,
-      use: isProd ?
-        ExtractTextPlugin.extract({
-          use: 'css-loader?minimize',
-          fallback: 'vue-style-loader',
-          filename: utils.assetsPath('css/[name].[chunkhash:7].css')
-        }) : ['vue-style-loader', 'css-loader']
-    }
     ]
   },
   performance: {
     maxEntrypointSize: 300000,
     hints: isProd ? 'warning' : false
   },
-  plugins: isProd ? [
-    new webpack.optimize.UglifyJsPlugin({
-      compress: { warnings: false },
-      sourceMap: config.build.productionSourceMap,
-      parallel: true
-    }),
-    new webpack.optimize.ModuleConcatenationPlugin(),
-    new ExtractTextPlugin({
-      filename: utils.assetsPath('css/[name].[chunkhash:7].css')
-    }),
-    new OptimizeCSSPlugin({
-      cssProcessorOptions: {
-        safe: true
-      }
-    })
-  ] : [
-    new FriendlyErrorsPlugin()
-  ]
+  plugins: isProd
+    ? [
+      new webpack.optimize.UglifyJsPlugin({
+        compress: { warnings: false },
+        sourceMap: config.build.productionSourceMap,
+        parallel: true
+      }),
+      new webpack.optimize.ModuleConcatenationPlugin(),
+      new ExtractTextPlugin({
+        filename: utils.assetsPath('css/[name].[chunkhash:7].css')
+      }),
+      new OptimizeCSSPlugin({
+        cssProcessorOptions: {
+          safe: true
+        }
+      })
+    ]
+    : [new FriendlyErrorsPlugin()]
 }
