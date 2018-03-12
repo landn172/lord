@@ -57,5 +57,8 @@ body {
 }
 .link {
   color: #000;
+  &:hover {
+    color: cadetblue;
+  }
 }
 </style>
