@@ -1,16 +1,19 @@
 <template>
   <main id="app">
     <router-view></router-view>
-    <canvas-bg></canvas-bg>
+    <!-- <canvas-bg></canvas-bg> -->
+    <canvas-bg-pn></canvas-bg-pn>
   </main>
 </template>
 
 <script>
-  import CanvasBg from './components/canvas-bg.vue'
+  // import CanvasBg from './components/canvas-bg.vue'
+  import CanvasBgPn from './components/canvas-bg-pn.vue'
   export default {
     name: 'app',
     components:{
-      CanvasBg
+      // CanvasBg,
+      CanvasBgPn
     }
   };
 </script>
