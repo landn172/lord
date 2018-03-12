@@ -1,6 +1,6 @@
 <template>
   <div class="wrapper">
-    <h1>Lord.Space</h1>
+    <h1>Landn172's blog</h1>
     <p>
       <a class="link" href="/blog/">BLOG</a>
     </p>
